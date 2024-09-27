@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class RansomNoteChecker {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Input for ransomNote and magazine
+        System.out.println("Enter the ransom note:");
+        String ransomNote = scanner.nextLine();
+        System.out.println("Enter the magazine:");
+        String magazine = scanner.nextLine();
+        
+        // Array to count the occurrences of each character in magazine
+        int[] magazineCount = new int[26];
+        
+        // Count occurrences of each letter in the magazine
+        for (int i = 0; i < magazine.length(); i++) {
+            char c = magazine.charAt(i);
+            magazineCount[c - 'a']++;  // Increment count of the letter
+        }
+        
+        // Check if ransomNote can be constructed
+        boolean canConstruct = true;
+        for (int i = 0; i < ransomNote.length(); i++) {
+            char c = ransomNote.charAt(i);
+            // If letter is not available or count is zero, we cannot construct ransom note
+            if (magazineCount[c - 'a'] == 0) {
+                canConstruct = false;
+                break;
+            }
+            magazineCount[c - 'a']--;  // Use one occurrence of the letter
+        }
+        
+        // Output result
+        if (canConstruct) {
+            System.out.println("True");
+        } else {
+            System.out.println("False");
+        }
+        
+        scanner.close();
+    }
+}
